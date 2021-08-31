@@ -1,8 +1,9 @@
 # quote-server
-A simple TCP client-server program that prints inspirational quotes to the client
+A multithreaded TCP server that prints inspirational quotes to the client
 
 TODO: 
-- [ ] Multi-threaded server
+- [x] Multi-threaded server
+- [x] Client program
 
 To run:
 
