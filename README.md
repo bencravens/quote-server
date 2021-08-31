@@ -1,5 +1,5 @@
 # quote-server
-A multithreaded TCP server that prints inspirational quotes to the client
+A multithreaded TCP/IP server that prints inspirational quotes to the client
 
 TODO: 
 - [x] Multi-threaded server
