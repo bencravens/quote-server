@@ -32,40 +32,6 @@ class QuoteServer {
         }
     }
 
-    // Spawn a thread and send quote to client
-    private static class ClientHandler implements Runnable {
-        private final Socket clientSocket;
-
-        //constructor
-        public ClientHandler(Socket socket) {
-            this.clientSocket = socket;
-        }
-
-        //run is called when a new thread is made
-        public void run() {
-            PrintWriter out = null;
-            BufferedReader in = null;
-            try {
-                // create inputstream to get input from client
-                in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-                // create outputstream to send quote to client
-                OutputStream output = clientSocket.getOutputStream();
-                PrintWriter writer = new PrintWriter(output, true);
-                // if the client sends us something, send them back a quote
-                String line;
-                while ((line = in.readLine()) != null) {
-                    System.out.printf("Client: %s\n",line);
-                    String quote = readQuote();
-                    writer.println(quote);
-                }
-
-            } catch (Exception e) {
-                System.out.println("Error getting output stream");
-                System.out.println(e);
-            }
-        }
-    }
-
     //Read a quote randomly from the quote file 
     public static String readQuote() {
         Random random = new Random();
