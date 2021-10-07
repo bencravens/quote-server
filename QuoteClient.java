@@ -8,39 +8,25 @@ import java.util.*;
 public class QuoteClient {
 
     public static void main(String[] args) {
-    
-        String hostname = "localhost";
-        int port = 5000;
+        //invoke like java QuoteClient 192.168.0.0 10 5000
+        //to read 10 quotes from server ip 192.168.0.0 via port 5000
+        String hostname = args[0];
+        int numquotes = Integer.parseInt(args[1]);
+        int port = Integer.parseInt(args[2]);
 
-        //connect to the server
-        try (Socket sock = new Socket(hostname, port)) {
-            System.out.println("Connected to " + hostname + " on port " + port);
-            //writing to server
-            PrintWriter out = new PrintWriter(sock.getOutputStream(), true);
-            //reading from server
-            InputStream input = sock.getInputStream();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(input));
-            
-            // scan for user input to send to server
-            Scanner sc = new Scanner(System.in);
-            String line = null;
-            //if the user types "exit", quit.
-            while (!"exit".equalsIgnoreCase(line)) {
-                //read from user
-                line = sc.nextLine();
-
-                //send user input to server
-                out.println(line);
-                out.flush();
-
+        for (int i=0; i<numquotes; i++) {        
+            //connect to the server
+            try (Socket sock = new Socket(hostname, port)) {
+                System.out.println("Connected to " + hostname + " on port " + port);
+                //reading from server
+                InputStream input = sock.getInputStream();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(input));
                 //display server reply
                 String quote = reader.readLine();
                 System.out.println(quote);
+            } catch (Exception e) {
+                System.out.println(e);
             }
-            //close scanner
-            sc.close();
-        } catch (Exception e) {
-            System.out.println(e);
-        } 
+        }
     }
 }

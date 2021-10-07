@@ -20,24 +20,30 @@ public class ClientHandler implements Runnable {
     //run is called when a new thread is made
     public void run() {
         PrintWriter out = null;
-        BufferedReader in = null;
         try {
-            // create inputstream to get input from client
-            in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             // create outputstream to send quote to client
             OutputStream output = clientSocket.getOutputStream();
-            PrintWriter writer = new PrintWriter(output, true);
-            // if the client sends us something, send them back a quote
-            String line;
-            while ((line = in.readLine()) != null) {
-                System.out.printf("Client: %s\n",line);
-                String quote = readQuote();
-                writer.println(quote);
-            }
-
+            System.out.println("Writing quote to client.");
+            out = new PrintWriter(output, true);
+            String quote = readQuote();
+            System.out.println("Quote is:");
+            System.out.println(quote);
+            String serverIp = (InetAddress.getLocalHost().getHostAddress());
+            String result = String.format("%s says: %s\n",serverIp,quote);
+            out.println(result);
         } catch (Exception e) {
             System.out.println("Error getting output stream");
             System.out.println(e);
+        } finally {
+            try {
+                //close connection to client
+                if (out != null) {
+                    out.close();
+                }
+            } catch (Exception e) {
+                System.out.println("Error disconnecting from client");
+                System.out.println(e);
+            }
         }
     }
 
