@@ -12,7 +12,7 @@ class QuoteServer {
     public static void main(String[] args) {
 
         System.out.println("Initializing server");
-        int port = 5000;
+        int port = args[0];
          
         try {
             ServerSocket serversock = new ServerSocket(port);
