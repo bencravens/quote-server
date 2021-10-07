@@ -8,9 +8,9 @@ TODO:
 To run:
 
 ```Bash
-javac QuoteServer.java port
+javac QuoteServer.java
 javac QuoteClient.java
-java QuoteServer &
+java QuoteServer port &
 java QuoteClient hostname numofquotes port
 ```
 
