@@ -8,10 +8,10 @@ TODO:
 To run:
 
 ```Bash
-javac QuoteServer.java
+javac QuoteServer.java port
 javac QuoteClient.java
 java QuoteServer &
-java QuoteClient
+java QuoteClient hostname numofquotes port
 ```
 
 Kill the server after you are done (it will be a process running in background) by getting its id with
